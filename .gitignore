@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.log
+*.pem
+*.key
+*.db
+*.sqlite*
+*.tar.gz
+*.zip
+.env
+.env.*
+.DS_Store

@@ -1,0 +1,16 @@
+name: DNSFabric installer checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax and unit tests
+        run: |
+          bash -n install.sh
+          python3 -m py_compile installer.py
+          python3 -m unittest discover -s tests -v

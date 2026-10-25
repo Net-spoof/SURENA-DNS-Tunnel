@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="title desc">
+  <title id="title">DNSFabric — Multi-Engine DNS Tunnel Deployment Toolkit</title>
+  <desc id="desc">DNSFabric identity with network nodes connected to a central resolver and three DNS transport engines</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07101D"/>
+      <stop offset="0.62" stop-color="#0A1F30"/>
+      <stop offset="1" stop-color="#082C33"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#39D5D0"/>
+      <stop offset="1" stop-color="#A0EDB8"/>
+    </linearGradient>
+    <pattern id="grid" width="38" height="38" patternUnits="userSpaceOnUse">
+      <path d="M 38 0 L 0 0 0 38" fill="none" stroke="#17364B" stroke-width="0.8"/>
+    </pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <rect width="1280" height="320" rx="22" fill="url(#bg)"/>
+  <rect width="1280" height="320" rx="22" fill="url(#grid)" opacity="0.30"/>
+  <circle cx="1048" cy="151" r="175" fill="#2BBABF" opacity="0.035"/>
+  <g opacity="0.8" fill="none" stroke="#37AFC0" stroke-width="1.5">
+    <path d="M790 74 L927 74 L1024 160 L1170 160"/>
+    <path d="M790 160 L1024 160 L1140 77 L1211 77"/>
+    <path d="M790 248 L927 248 L1024 160 L1170 248"/>
+    <path d="M1024 160 L1155 160"/>
+    <path d="M927 74 L927 248" stroke-dasharray="5 9" opacity="0.45"/>
+  </g>
+  <g fill="#0B2232" stroke="#36BEC3" stroke-width="2">
+    <rect x="785" y="53" width="104" height="42" rx="10"/>
+    <rect x="785" y="139" width="104" height="42" rx="10"/>
+    <rect x="785" y="225" width="104" height="42" rx="10"/>
+    <circle cx="1024" cy="160" r="48"/>
+    <circle cx="1170" cy="160" r="26"/>
+  </g>
+  <g font-family="Inter,Arial,Helvetica,sans-serif" text-anchor="middle" fill="#DDF7F4">
+    <text x="837" y="79" font-size="17" font-weight="600">Soar</text>
+    <text x="837" y="165" font-size="14" font-weight="600">Cotten</text>
+    <text x="837" y="251" font-size="14" font-weight="600">Master</text>
+    <text x="1024" y="164" font-size="15" font-weight="650">DNS</text>
+    <text x="1170" y="165" font-size="11" font-weight="600">VPS</text>
+  </g>
+  <g fill="#4EE0D4">
+    <circle cx="927" cy="74" r="5"/><circle cx="927" cy="248" r="5"/>
+    <circle cx="1140" cy="77" r="5"/><circle cx="1170" cy="248" r="5"/>
+    <circle cx="1024" cy="160" r="6" filter="url(#glow)"/>
+  </g>
+  <g font-family="Inter,Arial,Helvetica,sans-serif">
+    <rect x="70" y="59" width="5" height="194" rx="2.5" fill="url(#accent)"/>
+    <text x="100" y="137" fill="#F3FAFC" font-size="66" font-weight="800" letter-spacing="-2">DNSFabric</text>
+    <text x="103" y="177" fill="#A4C8D4" font-size="21" letter-spacing="1.2">MULTI-ENGINE DEPLOYMENT TOOLKIT</text>
+    <path d="M102 204 H500" stroke="#31515F" stroke-width="1.5"/>
+    <text x="103" y="236" fill="#67D9CF" font-size="16" font-weight="600">WHITE DNS  /  SOAR  /  COTTENDNS  /  MASTERDNS</text>
+  </g>
+</svg>
