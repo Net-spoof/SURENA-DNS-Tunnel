@@ -111,6 +111,19 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
  if strings.Count(body,"بازکردن · Open") != count {t.Fatal("each config must support an Open deep link")}
  if strings.Contains(body,"#ZgotmplZ") {t.Fatal("Go HTML templates rejected legitimate protocol deep link")}
  if !strings.Contains(body,"Copy subscription") {t.Fatal("subscription copy button should be separately named")}
+ if !strings.Contains(body,"id=\"add-to-app\"") || !strings.Contains(body,"افزودن به برنامه") {
+   t.Fatal("subscriber page must offer Add to App as the primary subscription action")
+ }
+ if !strings.Contains(body,"id=\"app-dialog\"") || !strings.Contains(body,"Profiles → Connection → Import") ||
+   !strings.Contains(body,"id=\"app-copy-again\"") {
+   t.Fatal("subscription import must display accurate copy-and-paste instructions")
+ }
+ if strings.Contains(body,"دریافت اشتراک · Import</a>") {
+   t.Fatal("old browser-facing subscription link must not remain")
+ }
+ if !strings.Contains(body,"id=\"subscription-url\"") || !strings.Contains(body,"data-copy=\"subscription-url\"") {
+   t.Fatal("separate subscription copy control must remain")
+ }
  // A valid bearer token is not enough to retrieve arbitrary engines or DNS zones.
  for _, query := range []string{"?qr=profile&engine=invalid&zone=example.com","?qr=profile&engine=soar&zone=attacker.example.com","?qr=invalid"} {
    invalid:=httptest.NewRecorder()
@@ -126,6 +139,7 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
    strings.Contains(after.Body.String(),"cottendns://") || strings.Contains(after.Body.String(),"masterdns://") {
    t.Fatal("disabled account should not display configuration secrets")
  }
+ if strings.Contains(after.Body.String(),"id=\"add-to-app\"") {t.Fatal("inactive accounts cannot add subscription to app")}
  blockedQR:=httptest.NewRecorder()
  h.ServeHTTP(blockedQR,httptest.NewRequest("GET","http://example.test/u/"+credential+"?qr=profile&engine=soar&zone="+url.QueryEscape(cfg.orderedZones()[0]),nil))
  if blockedQR.Code!=404 {t.Fatal("disabled account must not expose QR credentials")}
