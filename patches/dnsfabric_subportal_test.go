@@ -50,7 +50,7 @@ func TestDNSFabricSubscriptionPortal(t *testing.T) {
  if appRec.Body.String()!=legacy.Body.String(){t.Fatal("app client incompatible")}
  p:=httptest.NewRecorder()
  h.ServeHTTP(p,httptest.NewRequest("GET","http://example.test/u/"+token,nil))
- if p.Code!=200 || !strings.Contains(p.Body.String(),"DNSFabric") {
+ if p.Code!=200 || !strings.Contains(p.Body.String(),"پنل اشتراک") {
    t.Fatal("subscriber portal failed")
  }
  if p.Header().Get("X-Robots-Tag")!="noindex, nofollow" {t.Fatal("portal must not be indexed")}
