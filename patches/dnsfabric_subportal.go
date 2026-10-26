@@ -105,7 +105,7 @@ h2{font-size:18px;margin:0}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin:13px 0}
 .btn,.button,.qr-toggle{font:inherit;font-size:12px;font-weight:750;display:inline-flex;justify-content:center;align-items:center;gap:5px;border:1px solid #4c667b;background:#223e51;color:#ebf7fe;border-radius:11px;padding:11px 13px;cursor:pointer;text-decoration:none;min-height:43px;text-align:center}
 .btn.primary,.button.primary{color:#061f23;background:#5fe2c7;border-color:#5fe2c7}
-.btn:hover,.button:hover,.qr-toggle:hover{filter:brightness(1.12)}.add-app::before{content:"📱";font-size:16px;line-height:1}
+.btn:hover,.button:hover,.qr-toggle:hover{filter:brightness(1.12)}.add-app::before{content:"📋";font-size:16px;line-height:1}
 button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #7bdccf;outline-offset:3px}
 .subfield,.configfield{display:block;width:100%;background:#0b1522;border:1px solid #355065;border-radius:11px;color:#d7e6f1;padding:12px;font:12px ui-monospace,SFMono-Regular,Consolas,monospace;direction:ltr;text-align:left;overflow-wrap:anywhere}
 .configfield{resize:vertical;min-height:76px}
@@ -158,7 +158,7 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 <div class="section-head"><div><h2 id="subscription-heading">لینک اشتراک</h2><div class="subtitle">Subscription tools</div></div></div>
 <input class="subfield" id="subscription-url" readonly type="text" value="{{.SubscriptionURL}}" aria-label="Subscription URL">
 <div class="actions">
-<button class="button primary add-app" id="add-to-app" type="button">افزودن به برنامه</button>
+<button class="button add-app" id="add-to-app" type="button">کپی و راهنمای افزودن اشتراک</button>
 <button class="button copy" type="button" data-copy="subscription-url">کپی لینک اشتراک · Copy subscription</button>
 </div>
 <details class="qr-details subqr"><summary class="qr-toggle">نمایش QR اشتراک · Show subscription QR</summary>
@@ -174,8 +174,8 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 <div class="profile-top"><span class="engine {{.Engine}}">{{if eq .Engine "soar"}}Soar{{else if eq .Engine "cotten"}}CottenDNS{{else}}MasterDNS{{end}}</span><span class="zone" dir="ltr">{{.Zone}}</span></div>
 <textarea class="configfield" id="config-{{.Index}}" rows="3" readonly spellcheck="false" aria-label="Config {{.Engine}}">{{.Text}}</textarea>
 <div class="actions">
-<button type="button" class="button primary copy" data-copy="config-{{.Index}}">کپی کانفیگ · Copy</button>
-<a class="btn" href="{{.Link}}" rel="noreferrer">بازکردن · Open</a>
+<button type="button" class="button copy" data-copy="config-{{.Index}}">کپی کانفیگ · Copy</button>
+<a class="btn primary profile-open" href="{{.Link}}" rel="noreferrer" aria-label="افزودن کانفیگ {{.Engine}} به برنامه">📱 افزودن به برنامه</a>
 </div>
 <details class="qr-details">
 <summary class="qr-toggle">نمایش QR اختصاصی · Show QR</summary>
@@ -197,7 +197,7 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 <p class="privacy">لینک اشتراک و QRهای اتصال محرمانه‌اند. آن‌ها را در پیام عمومی یا تصویر منتشر نکنید.</p>
 </main>
 <dialog id="app-dialog" aria-labelledby="app-dialog-title">
-<div class="dialog-title"><strong id="app-dialog-title">افزودن اشتراک به برنامه</strong><button id="app-close" type="button" class="button">بستن · Close</button></div>
+<div class="dialog-title"><strong id="app-dialog-title">راهنمای افزودن اشتراک</strong><button id="app-close" type="button" class="button">بستن · Close</button></div>
 <div class="import-help"><p class="import-feedback" id="import-feedback" role="status"></p><ol><li>برنامه سازگار را باز کن.</li><li>به قسمت <strong>Profiles → Connection → Import</strong> برو.</li><li>لینک اشتراک را <strong>Paste</strong> کن و واردکردن را تأیید کن.</li></ol><p class="note">ورود مستقیم کانفیگ‌های تکی از طریق دکمه Open در کارت هر پروتکل امکان‌پذیر است. برای اشتراک، لینک باید داخل بخش Import جای‌گذاری شود.</p></div>
 <div class="dialog-actions"><button type="button" id="app-copy-again" class="button primary copy" data-copy="subscription-url">کپی دوباره لینک</button><button type="button" id="app-done" class="button">متوجه شدم</button></div>
 </dialog>
