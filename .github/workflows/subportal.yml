@@ -66,10 +66,10 @@ jobs:
       - name: Publish release only after passing full test suite
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: dnsfabric-subportal-v0.8.2.4
-          name: DNSFabric subscriber portal 0.8.2.4 · protocol QR & deep links
+          tag_name: dnsfabric-subportal-v0.8.2.5
+          name: DNSFabric subscriber portal 0.8.2.5 · Add to App
           body: |
-            Adds individual on-demand QR images and enlarged QR view for enabled engine profiles, separate config copy and deep links, and a redesigned mobile layout. Legacy /sub/ and browser-aware /s/ remain compatible.
+            Replaces the confusing raw subscription Import action with a mobile-friendly Add to App button that copies the subscription URL and displays accurate in-app Import/Paste instructions. Direct profile deep links, per-engine QR and legacy /sub/ remain intact.
             Keeps existing /sub/ links, user database, quota tracking and tunnel profiles intact.
             Built from WhiteDNS/Soar-Server pinned commit 736ad1b04cf4c1dc39dfc258db86922a3919382e
             with Apache-2.0 attribution.
