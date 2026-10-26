@@ -75,6 +75,7 @@ rollback() {
     cp -a -- "$BACKUP/soar-panel.before" "$BIN" || true
     systemctl start "$SERVICE" || true
   fi
+  rm -rf -- "$WORK"
   exit "$code"
 }
 trap rollback EXIT
