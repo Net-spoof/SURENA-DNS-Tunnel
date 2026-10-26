@@ -8,7 +8,7 @@
 
 ## Individual protocol links
 
-The **unbranded** public subscriber page lists all enabled Soar, CottenDNS and MasterDNS protocol profiles for each delegated tunnel zone. Each profile has its **own actual connection URL** and **Copy config** button. The separate **Copy subscription** button only copies the subscription URL. No DNSFabric or WhiteDNS product branding is displayed to customers.
+The **unbranded** public subscriber page lists all enabled Soar, CottenDNS and MasterDNS protocol profiles for each delegated tunnel zone. Each profile has its **own actual connection URL**, **Copy config**, **Open**, and independently expandable **Show QR** with a larger QR modal. Every QR is encoded on the server from the exact protocol configuration, not from the subscription URL. The separate **Copy subscription** button only copies the subscription URL. No DNSFabric or WhiteDNS product branding is displayed to customers.
 
 ## Routes
 
@@ -56,6 +56,10 @@ The resulting backup path is printed, under <code>/root/dnsfabric-subportal-back
 3. Use **Subscription portal** to open the <code>/u/TOKEN</code> account dashboard in a separate tab.
 4. To revoke a shared link, use the existing **Rotate subscription** action. This invalidates both the old short URL and its portal page without changing tunnel keys.
 
+## Protocol QR controls
+
+Open a browser-facing `/s/TOKEN` link, expand **Show QR** on any enabled protocol card, then use **Enlarge** for a larger image. The protocol URL is embedded in that QR; the subscription QR is shown separately under **Subscription tools**. All QR images are served by the same VPS and require the existing bearer token; no third-party QR API is used.
+
 ## Security and operational boundaries
 
 - A subscription URL is a **bearer secret**: anyone possessing it can access active profiles and the corresponding usage dashboard.
@@ -65,6 +69,6 @@ The resulting backup path is printed, under <code>/root/dnsfabric-subportal-back
 - An upstream panel update can replace this custom binary. Verify compatibility before upgrading WhiteDNS again.
 - The GitHub Actions workflow compiles patched upstream source at an exact commit and runs unit tests. Real VPS rollout must still be validated on the target server.
 
-[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.3) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
+[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.4) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
 
 Upstream source: [WhiteDNS/Soar-Server](https://github.com/WhiteDNS/Soar-Server), Apache License 2.0. DNSFabric remains a separate community integration.
