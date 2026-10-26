@@ -62,6 +62,14 @@ The subscription toolbar now has **کپی و راهنمای افزودن اشت�
 
 **Compatibility note:** The current official Android app declares ACTION_VIEW deep links only for individual profile schemes (`soar://`, `cottendns://`, `masterdns://`, `stormdns://`), **not** for automatic import of HTTPS subscription URLs. This control does not falsely claim that the app has automatically imported the subscription. Each protocol card now labels its existing direct deep link **📱 افزودن به برنامه (Add to App)**, instead of the ambiguous **Open**. This action uses the real `soar://`, `cottendns://`, or `masterdns://` URI and can open a compatible installed app. It is distinct from the subscription copy-and-guide control.
 
+## Download the companion client
+
+The subscriber page includes a dedicated **Get the client** section with neutral platform branding:
+
+- **Android:** A one-tap download of the verified official [WhiteDNS 1.6.14 universal signed APK](https://github.com/WhiteDNS/WhiteDNS-Android/releases/download/1.6.14/WhiteDNS-1.6.14-universal.apk). A separate [Latest official releases](https://github.com/WhiteDNS/WhiteDNS-Android/releases/latest) link lets users find newer versions.
+- **iPhone / iOS:** No official compatible iOS release of this client was confirmed. The page displays an Apple-marked unavailable status rather than a fake download button or an unverified third-party alternative.
+- APK files are **not redistributed** via DNSFabric; users download from the official upstream GitHub. No account tokens are included in the download link.
+
 ## Protocol QR controls
 
 Open a browser-facing `/s/TOKEN` link, expand **Show QR** on any enabled protocol card, then use **Enlarge** for a larger image. The protocol URL is embedded in that QR; the subscription QR is shown separately under **Subscription tools**. All QR images are served by the same VPS and require the existing bearer token; no third-party QR API is used.
@@ -75,6 +83,6 @@ Open a browser-facing `/s/TOKEN` link, expand **Show QR** on any enabled protoco
 - An upstream panel update can replace this custom binary. Verify compatibility before upgrading WhiteDNS again.
 - The GitHub Actions workflow compiles patched upstream source at an exact commit and runs unit tests. Real VPS rollout must still be validated on the target server.
 
-[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.6) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
+[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.7) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
 
 Upstream source: [WhiteDNS/Soar-Server](https://github.com/WhiteDNS/Soar-Server), Apache License 2.0. DNSFabric remains a separate community integration.
