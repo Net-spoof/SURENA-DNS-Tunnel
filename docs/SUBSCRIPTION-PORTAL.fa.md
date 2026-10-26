@@ -16,11 +16,12 @@
 <thead><tr><th align="right">آدرس</th><th align="right">کاربرد</th><th align="right">سازگاری</th></tr></thead>
 <tbody>
 <tr><td align="right"><code>https://panel.example.com/sub/TOKEN</code></td><td align="right">ساب رسمی قدیمی با خروجی Base64</td><td align="right">بدون تغییر</td></tr>
-<tr><td align="right"><code>https://panel.example.com/s/TOKEN</code></td><td align="right">ساب کوتاه و جدید</td><td align="right">همان محتوا و هدرهای ساب قبلی</td></tr>
+<tr><td align="right"><code>https://panel.example.com/s/TOKEN</code></td><td align="right">ساب هوشمند جدید: در مرورگر صفحه کاربر؛ در اپ کانفیگ خام</td><td align="right">همان محتوا و هدرهای ساب قبلی برای اپ</td></tr>
 <tr><td align="right"><code>https://panel.example.com/u/TOKEN</code></td><td align="right">صفحه کاربر شامل وضعیت، حجم، انقضا و QR</td><td align="right">برای مرورگر؛ نه جایگزین آدرس ساب در اپ</td></tr>
 </tbody>
 </table>
 
+<p><strong>تفاوت مهم:</strong> مرورگر با هدرهای مخصوص مرور وب، صفحه HTML را در <code>/s/TOKEN</code> می‌بیند؛ اپ WhiteDNS همان لینک را با خروجی اصلی Base64/Plain دریافت می‌کند. لینک قدیمی <code>/sub/TOKEN</code> برای سازگاری همیشه خام باقی می‌ماند. اگر لینک قدیمی ذخیره کرده‌اید، لینک جدید را از پنل دوباره کپی کنید.</p>
 <p><code>TOKEN</code> در مثال بالا فقط جای‌نگهدار است؛ مقدار واقعی آن را پنل تولید می‌کند. این لینک محرمانه است و نباید در کانال عمومی یا لاگ منتشر شود.</p>
 
 <h2>راهنمای بروزرسانی روی سرور</h2>
@@ -70,7 +71,7 @@ bash /root/dnsfabric-update-subportal.sh
 <ol>
 <li>در پنل مدیریت، قسمت <strong>Accounts</strong> را باز کنید.</li>
 <li>برای کاربر، روی <strong>لینک / QR</strong> و سپس <strong>لینک ساب</strong> بزنید.</li>
-<li>لینک جدید <code>/s/TOKEN</code> برای افزودن به اپ و QR آماده است.</li>
+<li>لینک جدید <code>/s/TOKEN</code> برای افزودن به اپ و QR آماده است؛ باز کردن همان لینک در مرورگر به‌صورت خودکار صفحه اختصاصی کاربر را نمایش می‌دهد.</li>
 <li>دکمه <strong>نمایش صفحه اشتراک · Subscription portal</strong> صفحه <code>/u/TOKEN</code> را باز می‌کند.</li>
 <li>تعویض توکن از همان کنترل قدیمی «تعویض لینک ساب» انجام می‌شود؛ با تعویض، لینک‌های قدیمی و صفحه مربوط به آن‌ها دیگر معتبر نیستند.</li>
 </ol>
