@@ -58,3 +58,46 @@ func TestDNSFabricSubscriptionPortal(t *testing.T) {
  h.ServeHTTP(bad,httptest.NewRequest("GET","http://example.test/u/bad",nil))
  if bad.Code!=404 {t.Fatal("invalid bearer token accepted")}
 }
+
+func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
+ _, store, h := testBrowser(t)
+ c, err := store.Create(ClientInput{Name:"Multi protocol test", Engines:"all", Enabled:true, QuotaBytes:1073741824, StreamLimit:16})
+ if err != nil { t.Fatal(err) }
+ credential, err := store.SubscriptionToken(c.ID,false)
+ if err != nil { t.Fatal(err) }
+ page := httptest.NewRecorder()
+ req := httptest.NewRequest("GET","http://example.test/s/"+credential,nil)
+ req.Header.Set("Accept","text/html")
+ req.Header.Set("Sec-Fetch-Dest","document")
+ h.ServeHTTP(page,req)
+ if page.Code != 200 { t.Fatalf("unexpected page HTTP %d",page.Code) }
+ body := page.Body.String()
+ if strings.Contains(body, "DNSFabric") || strings.Contains(body, "WhiteDNS") || strings.Contains(body, "WHITE DNS") {
+   t.Fatal("subscriber-facing branding must be generic")
+ }
+ client, cfg, err := store.Subscription(credential)
+ if err != nil { t.Fatal(err) }
+ count:=0
+ for _, zone := range cfg.orderedZones() {
+   profiles, err := store.profilesAt(client,cfg,zone)
+   if err != nil { t.Fatal(err) }
+   for _, engine := range profileEngines {
+     link:=profiles[engine]
+     if link=="" {continue}
+     count++
+     if !strings.Contains(body, link) {t.Fatalf("missing raw %s config from subscriber view",engine)}
+   }
+ }
+ if count != 3 {t.Fatalf("expected 3 config profiles, got %d",count)}
+ if strings.Count(body,"class='copy-config'") != count {t.Fatal("every config must have its own copy button")}
+ if !strings.Contains(body,"Copy subscription") {t.Fatal("subscription copy button should be separately named")}
+ // Disabled users retain a status page, but not connection secrets.
+ clientInput:=ClientInput{Name:c.Name,Engines:"all",Enabled:false,QuotaBytes:c.QuotaBytes,StreamLimit:c.StreamLimit,Revision:c.Revision}
+ if _,err := store.Edit(c.ID,clientInput);err!=nil {t.Fatal(err)}
+ after:=httptest.NewRecorder()
+ h.ServeHTTP(after,httptest.NewRequest("GET","http://example.test/u/"+credential,nil))
+ if after.Code!=200 || strings.Contains(after.Body.String(),"soar://") ||
+   strings.Contains(after.Body.String(),"cottendns://") || strings.Contains(after.Body.String(),"masterdns://") {
+   t.Fatal("disabled account should not display configuration secrets")
+ }
+}
