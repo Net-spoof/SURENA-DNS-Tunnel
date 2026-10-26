@@ -1,5 +1,11 @@
 # Changelog
 
+## DNSFabric Subscriber Portal · 0.8.2.3 (preview)
+
+- Removed product branding from the public subscriber page.
+- Listed actual enabled Soar, CottenDNS and MasterDNS profile links per delegated DNS zone, with separate copy buttons.
+- Kept subscription URL copying separate from direct config copying; no changes to existing account tokens, subscription payloads or quotas.
+
 ## DNSFabric Subscriber Portal · 0.8.2.2 (preview)
 
 - Browser-aware `/s/TOKEN`: browsers see the dashboard while subscription clients keep the previous raw encoded data and headers.
