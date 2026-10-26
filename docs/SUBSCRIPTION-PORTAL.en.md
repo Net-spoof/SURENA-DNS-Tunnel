@@ -56,6 +56,12 @@ The resulting backup path is printed, under <code>/root/dnsfabric-subportal-back
 3. Use **Subscription portal** to open the <code>/u/TOKEN</code> account dashboard in a separate tab.
 4. To revoke a shared link, use the existing **Rotate subscription** action. This invalidates both the old short URL and its portal page without changing tunnel keys.
 
+## Add to App button
+
+The primary subscription action is now **📱 افزودن به برنامه (Add to App)**. Tapping it copies the HTTPS subscription URL and opens a short guide showing where to paste it inside the compatible Android app: **Profiles → Connection → Import**. If automatic clipboard access fails, the page explains how to copy the link manually.
+
+**Compatibility note:** The current official Android app declares ACTION_VIEW deep links only for individual profile schemes (`soar://`, `cottendns://`, `masterdns://`, `stormdns://`), **not** for automatic import of HTTPS subscription URLs. This control does not falsely claim that the app has automatically imported the subscription. Individual **Open** profile controls continue to use the recognized protocol deep links.
+
 ## Protocol QR controls
 
 Open a browser-facing `/s/TOKEN` link, expand **Show QR** on any enabled protocol card, then use **Enlarge** for a larger image. The protocol URL is embedded in that QR; the subscription QR is shown separately under **Subscription tools**. All QR images are served by the same VPS and require the existing bearer token; no third-party QR API is used.
@@ -69,6 +75,6 @@ Open a browser-facing `/s/TOKEN` link, expand **Show QR** on any enabled protoco
 - An upstream panel update can replace this custom binary. Verify compatibility before upgrading WhiteDNS again.
 - The GitHub Actions workflow compiles patched upstream source at an exact commit and runs unit tests. Real VPS rollout must still be validated on the target server.
 
-[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.4) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
+[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.5) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
 
 Upstream source: [WhiteDNS/Soar-Server](https://github.com/WhiteDNS/Soar-Server), Apache License 2.0. DNSFabric remains a separate community integration.
