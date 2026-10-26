@@ -1,5 +1,12 @@
 # Changelog
 
+## DNSFabric Subscriber Portal · 0.8.2.6 (preview)
+
+- Corrected the intended control: each enabled protocol card now labels its existing direct `soar://`, `cottendns://` or `masterdns://` Open deep link **📱 افزودن به برنامه (Add to App)**.
+- Made direct Add to App the visually primary protocol action while leaving **Copy config** separate.
+- Renamed the subscription toolbar's copy-and-instructions button to **کپی و راهنمای افزودن اشتراک** to distinguish HTTPS subscription Import from direct profile import.
+- Preserved bearer tokens, legacy `/sub/`, smart `/s/`, QR images, quotas and the protected panel login.
+
 ## DNSFabric Subscriber Portal · 0.8.2.5 (preview)
 
 - Replaced the misleading browser-facing subscription Import link with **📱 افزودن به برنامه** (Add to App).
