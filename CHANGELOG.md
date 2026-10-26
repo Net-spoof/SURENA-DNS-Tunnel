@@ -1,5 +1,12 @@
 # Changelog
 
+## DNSFabric Subscriber Portal · 0.8.2.5 (preview)
+
+- Replaced the misleading browser-facing subscription Import link with **📱 افزودن به برنامه** (Add to App).
+- Added a clipboard-copy confirmation and step-by-step in-app subscription Import/Paste dialog, with manual copy fallback.
+- Preserved independent **Copy subscription** action, per-engine QR, direct profile Open buttons and unchanged raw `/sub/` for the Android app.
+- Documented the current Android client's limitation: HTTPS subscription auto-import is not supported via ACTION_VIEW deep links.
+
 ## DNSFabric Subscriber Portal · 0.8.2.4 (preview)
 
 - Responsive redesign of the customer subscription dashboard, with clean two-column desktop/one-column mobile protocol cards.
