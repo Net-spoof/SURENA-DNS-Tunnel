@@ -42,12 +42,25 @@ route = '''if strings.HasPrefix(r.URL.Path, "/sub/") {
 \t}'''
 route_new = route + '''
 \tif strings.HasPrefix(r.URL.Path, "/s/") {
-\t\t// The short URL reuses the official validation, headers and body.
+\t\t// Navigating from a browser shows the account page.
+\t\t// WhiteDNS Android and other subscription clients keep the exact
+\t\t// original /sub/ payload, encoding and HTTP response headers.
+\t\t// ?format=plain and ?format=base64 always force a raw payload.
+\t\taccept := strings.ToLower(r.Header.Get("Accept"))
+\t\tbrowser := r.Method == http.MethodGet && r.URL.Query().Get("format") == "" &&
+\t\t\t(r.Header.Get("Sec-Fetch-Dest") == "document" ||
+\t\t\t(strings.Contains(accept, "text/html") && !strings.Contains(accept, "application/json")))
 \t\tcopy := r.Clone(r.Context())
 \t\tlocation := *r.URL
-\t\tlocation.Path = "/sub/" + strings.TrimPrefix(r.URL.Path, "/s/")
-\t\tcopy.URL = &location
-\t\th.serveSubscription(w, copy)
+\t\tif browser {
+\t\t\tlocation.Path = "/u/" + strings.TrimPrefix(r.URL.Path, "/s/")
+\t\t\tcopy.URL = &location
+\t\t\th.serveDNSFabricPortal(w, copy)
+\t\t} else {
+\t\t\tlocation.Path = "/sub/" + strings.TrimPrefix(r.URL.Path, "/s/")
+\t\t\tcopy.URL = &location
+\t\t\th.serveSubscription(w, copy)
+\t\t}
 \t\treturn
 \t}
 \tif strings.HasPrefix(r.URL.Path, "/u/") {
@@ -115,4 +128,4 @@ for p, body in ((http, h), (subs, s), (app, js), (html, page)):
     p.write_text(body)
 shutil.copyfile(source, go_portal)
 shutil.copyfile(testfile, root / "internal/panel/dnsfabric_subportal_test.go")
-print("PASS: DNSFabric portal integrated into WhiteDNS pinned source, /sub/ preserved")
+print("PASS: Browser-aware /s/ and legacy app subscription integrated")
