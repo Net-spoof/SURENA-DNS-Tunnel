@@ -105,7 +105,7 @@ h2{font-size:18px;margin:0}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin:13px 0}
 .btn,.button,.qr-toggle{font:inherit;font-size:12px;font-weight:750;display:inline-flex;justify-content:center;align-items:center;gap:5px;border:1px solid #4c667b;background:#223e51;color:#ebf7fe;border-radius:11px;padding:11px 13px;cursor:pointer;text-decoration:none;min-height:43px;text-align:center}
 .btn.primary,.button.primary{color:#061f23;background:#5fe2c7;border-color:#5fe2c7}
-.btn:hover,.button:hover,.qr-toggle:hover{filter:brightness(1.12)}
+.btn:hover,.button:hover,.qr-toggle:hover{filter:brightness(1.12)}.phone-icon{font-size:16px;line-height:1}
 button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #7bdccf;outline-offset:3px}
 .subfield,.configfield{display:block;width:100%;background:#0b1522;border:1px solid #355065;border-radius:11px;color:#d7e6f1;padding:12px;font:12px ui-monospace,SFMono-Regular,Consolas,monospace;direction:ltr;text-align:left;overflow-wrap:anywhere}
 .configfield{resize:vertical;min-height:76px}
@@ -133,7 +133,7 @@ dialog{width:min(92vw,430px);padding:22px;border-radius:21px;background:#162737;
 dialog::backdrop{background:#000c}
 .dialog-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;gap:12px}
 dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;border-radius:14px;padding:12px}
-.small{font-size:11px;color:#98abb9;text-align:center;margin:12px 0}
+.small{font-size:11px;color:#98abb9;text-align:center;margin:12px 0}.import-help{font-size:14px;line-height:2;color:#c7d9e4}.import-help ol{padding-right:20px;margin:11px 0}.import-help li{margin:9px 0}.import-help strong{color:#7be9cb}.dialog-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.dialog-actions>*{flex:1}.import-feedback{font-size:12px;line-height:1.8;color:#8edcc7}.import-feedback.warn{color:#ffce9c}
 @media(max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){body{padding:16px 11px 34px}.panel{padding:19px}.profile-grid{grid-template-columns:1fr}.masthead .title{font-size:19px}.profile-card{padding:16px}.actions>*{flex:1}.stats{gap:9px}.stat{padding:12px}.stat strong{font-size:14px}}
 </style>
@@ -158,8 +158,8 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 <div class="section-head"><div><h2 id="subscription-heading">لینک اشتراک</h2><div class="subtitle">Subscription tools</div></div></div>
 <input class="subfield" id="subscription-url" readonly type="text" value="{{.SubscriptionURL}}" aria-label="Subscription URL">
 <div class="actions">
-<button class="button primary copy" type="button" data-copy="subscription-url">کپی لینک اشتراک · Copy subscription</button>
-<a class="btn" href="{{.SubscriptionURL}}" rel="noreferrer">دریافت اشتراک · Import</a>
+<button class="button primary" id="add-to-app" type="button"><span class="phone-icon" aria-hidden="true">📱</span>افزودن به برنامه</button>
+<button class="button copy" type="button" data-copy="subscription-url">کپی لینک اشتراک · Copy subscription</button>
 </div>
 <details class="qr-details subqr"><summary class="qr-toggle">نمایش QR اشتراک · Show subscription QR</summary>
 <div class="qr-content"><img loading="lazy" alt="Subscription QR" src="{{.SubscriptionQR}}" width="205" height="205"><p class="note">برای افزودن اشتراک به اپ، اسکن کنید.</p></div>
@@ -196,6 +196,11 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 </article>
 <p class="privacy">لینک اشتراک و QRهای اتصال محرمانه‌اند. آن‌ها را در پیام عمومی یا تصویر منتشر نکنید.</p>
 </main>
+<dialog id="app-dialog" aria-labelledby="app-dialog-title">
+<div class="dialog-title"><strong id="app-dialog-title">افزودن اشتراک به برنامه</strong><button id="app-close" type="button" class="button">بستن · Close</button></div>
+<div class="import-help"><p class="import-feedback" id="import-feedback" role="status"></p><ol><li>برنامه سازگار را باز کن.</li><li>به قسمت <strong>Profiles → Connection → Import</strong> برو.</li><li>لینک اشتراک را <strong>Paste</strong> کن و واردکردن را تأیید کن.</li></ol><p class="note">ورود مستقیم کانفیگ‌های تکی از طریق دکمه Open در کارت هر پروتکل امکان‌پذیر است. برای اشتراک، لینک باید داخل بخش Import جای‌گذاری شود.</p></div>
+<div class="dialog-actions"><button type="button" id="app-copy-again" class="button primary copy" data-copy="subscription-url">کپی دوباره لینک</button><button type="button" id="app-done" class="button">متوجه شدم</button></div>
+</dialog>
 <dialog id="qr-dialog" aria-label="QR code">
 <div class="dialog-title"><strong id="qr-caption"></strong><button id="qr-close" type="button" class="button">بستن · Close</button></div>
 <img id="qr-big" alt="Full-size protocol QR code">
@@ -205,11 +210,23 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 (function(){
 function setCopied(btn,message){const label=btn.dataset.label||(btn.dataset.label=btn.textContent);btn.textContent=message;setTimeout(()=>{btn.textContent=label},1600)}
 async function copy(input,btn){
-if(!input)return;
-try{if(!navigator.clipboard||!window.isSecureContext)throw new Error("clipboard unavailable");await navigator.clipboard.writeText(input.value);setCopied(btn,"کپی شد · Copied")}
-catch(e){input.focus();input.select();const ok=document.execCommand("copy");setCopied(btn,ok?"کپی شد · Copied":"انتخاب شد · Selected")}
+if(!input)return false;
+try{if(!navigator.clipboard||!window.isSecureContext)throw new Error("clipboard unavailable");await navigator.clipboard.writeText(input.value);setCopied(btn,"کپی شد · Copied");return true}
+catch(e){input.focus();input.select();let ok=false;try{ok=document.execCommand("copy")}catch(err){ok=false}setCopied(btn,ok?"کپی شد · Copied":"انتخاب شد · Selected");return ok}
 }
 document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>copy(document.getElementById(b.dataset.copy),b)));
+const add=document.getElementById("add-to-app"),appDialog=document.getElementById("app-dialog");
+if(add) add.addEventListener("click",async()=>{
+ const ok=await copy(document.getElementById("subscription-url"),add);
+ const msg=document.getElementById("import-feedback");
+ msg.textContent=ok?"لینک اشتراک کپی شد؛ آن را در بخش Import برنامه جای‌گذاری کن.":"کپی خودکار ممکن نشد؛ از دکمه کپی لینک اشتراک استفاده کن و سپس در برنامه Paste کن.";
+ msg.classList.toggle("warn",!ok);
+ if(typeof appDialog.showModal==="function") appDialog.showModal(); else appDialog.setAttribute("open","");
+});
+const closeApp=()=>{if(typeof appDialog.close==="function")appDialog.close();else appDialog.removeAttribute("open")};
+document.getElementById("app-close").addEventListener("click",closeApp);
+document.getElementById("app-done").addEventListener("click",closeApp);
+appDialog.addEventListener("click",e=>{if(e.target===appDialog)closeApp()});
 const dialog=document.getElementById("qr-dialog"),image=document.getElementById("qr-big"),caption=document.getElementById("qr-caption");
 document.querySelectorAll(".qr-expand").forEach(b=>b.addEventListener("click",()=>{
 image.src=b.dataset.qr;caption.textContent=b.dataset.label+" · QR";
