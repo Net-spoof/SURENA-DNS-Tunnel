@@ -105,7 +105,7 @@ h2{font-size:18px;margin:0}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin:13px 0}
 .btn,.button,.qr-toggle{font:inherit;font-size:12px;font-weight:750;display:inline-flex;justify-content:center;align-items:center;gap:5px;border:1px solid #4c667b;background:#223e51;color:#ebf7fe;border-radius:11px;padding:11px 13px;cursor:pointer;text-decoration:none;min-height:43px;text-align:center}
 .btn.primary,.button.primary{color:#061f23;background:#5fe2c7;border-color:#5fe2c7}
-.btn:hover,.button:hover,.qr-toggle:hover{filter:brightness(1.12)}.phone-icon{font-size:16px;line-height:1}
+.btn:hover,.button:hover,.qr-toggle:hover{filter:brightness(1.12)}.add-app::before{content:"📱";font-size:16px;line-height:1}
 button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #7bdccf;outline-offset:3px}
 .subfield,.configfield{display:block;width:100%;background:#0b1522;border:1px solid #355065;border-radius:11px;color:#d7e6f1;padding:12px;font:12px ui-monospace,SFMono-Regular,Consolas,monospace;direction:ltr;text-align:left;overflow-wrap:anywhere}
 .configfield{resize:vertical;min-height:76px}
@@ -158,7 +158,7 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 <div class="section-head"><div><h2 id="subscription-heading">لینک اشتراک</h2><div class="subtitle">Subscription tools</div></div></div>
 <input class="subfield" id="subscription-url" readonly type="text" value="{{.SubscriptionURL}}" aria-label="Subscription URL">
 <div class="actions">
-<button class="button primary" id="add-to-app" type="button"><span class="phone-icon" aria-hidden="true">📱</span>افزودن به برنامه</button>
+<button class="button primary add-app" id="add-to-app" type="button">افزودن به برنامه</button>
 <button class="button copy" type="button" data-copy="subscription-url">کپی لینک اشتراک · Copy subscription</button>
 </div>
 <details class="qr-details subqr"><summary class="qr-toggle">نمایش QR اشتراک · Show subscription QR</summary>
