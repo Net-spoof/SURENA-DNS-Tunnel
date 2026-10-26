@@ -49,7 +49,7 @@ func (h *HTTP) serveDNSFabricPortal(w http.ResponseWriter, r *http.Request) {
   if c.ExpiresAt>0 {expiry=time.UnixMilli(c.ExpiresAt).UTC().Format("2006-01-02")}
   action:="<p class='inactive'>این اشتراک غیرفعال یا منقضی شده است. برای تمدید با ارائه‌دهنده تماس بگیرید. · Subscription inactive.</p>"
   if status=="active" {
-    action=fmt.Sprintf("<div class='actions'><a class='btn' href='%s' rel='noreferrer'>دریافت اشتراک · Import</a><button id='copy' type='button'>کپی لینک · Copy</button></div><input id='subscription' readonly dir='ltr' value='%s' aria-label='Subscription URL'><div class='qr'><img width='160' height='160' alt='QR Code' src='/u/%s?qr=1'><p>اسکن QR یا افزودن لینک به WhiteDNS</p></div>",html.EscapeString(url),html.EscapeString(url),html.EscapeString(token))
+    action=fmt.Sprintf("<div class='actions'><a class='btn' href='%s' rel='noreferrer'>دریافت اشتراک · Import</a><button id='copy' type='button'>کپی لینک · Copy</button></div><input id='subscription' readonly dir='ltr' value='%s' aria-label='Subscription URL'><div class='qr'><img width='160' height='160' alt='QR Code' src='/u/%s?qr=1'><p>اسکن QR یا افزودن لینک در اپ سازگار</p></div>",html.EscapeString(url),html.EscapeString(url),html.EscapeString(token))
   }
   // Same per-engine and per-zone profiles as the official subscription output.
   // Accounts without active service never expose connection credentials.
