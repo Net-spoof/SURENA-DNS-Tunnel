@@ -42,7 +42,7 @@
   </table>
 
   <h3>افزونه لینک اشتراک</h3>
-  <p>برای پنل‌های موجود <strong>WhiteDNS v0.8.2</strong>، افزونه جداگانه <a href="docs/SUBSCRIPTION-PORTAL.fa.md">Subscriber Portal</a> آماده است: لینک هوشمند <code>/s/TOKEN</code> (نمایش داشبورد در مرورگر و خروجی خام برای اپ)، صفحه وضعیت کاربر <code>/u/TOKEN</code>، QR و نمایش مصرف/انقضا. **هر کانفیگ Soar، CottenDNS و MasterDNS به‌صورت جداگانه همراه با دکمه کپی، بازکردن مستقیم و QR اختصاصی بازشونده** نمایش داده می‌شود؛ دکمه <strong>«📱 افزودن به برنامه»</strong> داخل هر کارت، کانفیگ همان پروتکل را با Deep Link به اپ می‌فرستد؛ دکمه بالای صفحه <strong>«کپی و راهنمای افزودن اشتراک»</strong> تنها لینک ساب را کپی و راهنمای Import را نمایش می‌دهد؛ صفحه کاربر نام پروژه یا WhiteDNS را نشان نمی‌دهد. لینک قدیمی <code>/sub/TOKEN</code> حفظ می‌شود. این قابلیت از طریق <a href="https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.6">بسته سفارشی GitHub</a> نصب می‌شود، نه آپدیت رسمی WhiteDNS.</p>
+  <p>برای پنل‌های موجود <strong>WhiteDNS v0.8.2</strong>، افزونه جداگانه <a href="docs/SUBSCRIPTION-PORTAL.fa.md">Subscriber Portal</a> آماده است: لینک هوشمند <code>/s/TOKEN</code> (نمایش داشبورد در مرورگر و خروجی خام برای اپ)، صفحه وضعیت کاربر <code>/u/TOKEN</code>، QR و نمایش مصرف/انقضا. **هر کانفیگ Soar، CottenDNS و MasterDNS به‌صورت جداگانه همراه با دکمه کپی، بازکردن مستقیم و QR اختصاصی بازشونده** نمایش داده می‌شود؛ دکمه <strong>«📱 افزودن به برنامه»</strong> داخل هر کارت، کانفیگ همان پروتکل را با Deep Link به اپ می‌فرستد؛ دکمه بالای صفحه <strong>«کپی و راهنمای افزودن اشتراک»</strong> تنها لینک ساب را کپی و راهنمای Import را نمایش می‌دهد؛ صفحه کاربر نام پروژه یا WhiteDNS را نشان نمی‌دهد. لینک قدیمی <code>/sub/TOKEN</code> حفظ می‌شود. این قابلیت از طریق <a href="https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.7">بسته سفارشی GitHub</a> نصب می‌شود، نه آپدیت رسمی WhiteDNS.</p>
   <p><strong>برای سرور نصب‌شده:</strong> ابتدا بررسی سازگاری را انجام دهید:</p>
 </div>
 
@@ -63,6 +63,7 @@ bash /root/dnsfabric-update-subportal.sh
 ~~~
 
 <div dir="rtl" align="right">
+  <p><strong>دانلود اپ از صفحه اشتراک:</strong> در نسخه 0.8.2.7، دکمه دانلود مستقیم APK رسمی اندروید از مخزن سازنده، لینک آخرین نسخه و وضعیت پشتیبانی iOS اضافه شده است. چون نسخه iOS رسمی سازگار با این ساب تأیید نشده، لینک دانلود غیرواقعی برای آیفون وجود ندارد.</p>
   <h3>آموزش‌ها</h3>
   <table>
     <thead><tr><th align="right">مستند</th><th align="right">موضوع</th></tr></thead>
