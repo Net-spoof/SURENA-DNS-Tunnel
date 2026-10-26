@@ -27,10 +27,10 @@ func TestDNSFabricSubscriptionPortal(t *testing.T) {
  browser.Header.Set("Sec-Fetch-Dest","document")
  webpage:=httptest.NewRecorder()
  h.ServeHTTP(webpage,browser)
- if webpage.Code!=200 || !strings.Contains(webpage.Header().Get("Content-Type"),"text/html") || !strings.Contains(webpage.Body.String(),"DNSFabric") {
+ if webpage.Code!=200 || !strings.Contains(webpage.Header().Get("Content-Type"),"text/html") || !strings.Contains(webpage.Body.String(),"پنل اشتراک") {
    t.Fatal("browser /s/ navigation must render subscriber portal")
  }
- if strings.Contains(webpage.Body.String(),"soar://") {t.Fatal("portal accidentally revealed raw profile")}
+ if !strings.Contains(webpage.Body.String(),"soar://") {t.Fatal("active subscriber portal must include direct profile link")}
  // Explicit format always wins, even in a browser.
  rawRequest := httptest.NewRequest("GET","http://example.test/s/"+token+"?format=base64",nil)
  rawRequest.Header.Set("Accept","text/html")
