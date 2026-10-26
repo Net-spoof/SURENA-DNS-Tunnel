@@ -145,3 +145,54 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
  h.ServeHTTP(blockedQR,httptest.NewRequest("GET","http://example.test/u/"+credential+"?qr=profile&engine=soar&zone="+url.QueryEscape(cfg.orderedZones()[0]),nil))
  if blockedQR.Code!=404 {t.Fatal("disabled account must not expose QR credentials")}
 }
+
+func TestOfficialClientDownloadActionsAreSafe(t *testing.T) {
+ _, store, h := testBrowser(t)
+ account := account(t, store, 1073741824)
+ token, err := store.SubscriptionToken(account.ID,false)
+ if err != nil { t.Fatal(err) }
+ expectedAPK := "https://github.com/WhiteDNS/WhiteDNS-Android/releases/download/1.6.14/WhiteDNS-1.6.14-universal.apk"
+ for _, uri := range []string{"/u/"+token, "/s/"+token} {
+   request:=httptest.NewRequest("GET","http://example.test"+uri,nil)
+   if strings.HasPrefix(uri,"/s/") {request.Header.Set("Accept","text/html");request.Header.Set("Sec-Fetch-Dest","document")}
+   page:=httptest.NewRecorder()
+   h.ServeHTTP(page,request)
+   if page.Code!=200 {t.Fatalf("%s unexpected HTTP %d",uri,page.Code)}
+   html:=page.Body.String()
+   if !strings.Contains(html,expectedAPK) || !strings.Contains(html,`id="android-app-download"`) {
+     t.Fatalf("%s must offer official direct-download universal Android APK",uri)
+   }
+   if !strings.Contains(html,"https://github.com/WhiteDNS/WhiteDNS-Android/releases/latest") {
+     t.Fatal("missing official latest version fallback")
+   }
+   if !strings.Contains(html,"آیفون / iOS") || !strings.Contains(html,"نسخه iOS فعلاً موجود نیست") {
+     t.Fatal("iOS availability must be accurately labeled")
+   }
+   if strings.Contains(html,"apps.apple.com/") || strings.Contains(html,"testflight.apple.com/") {
+     t.Fatal("unsupported iOS download URL must not be advertised")
+   }
+   if !strings.Contains(html,`class="app-unavailable" aria-disabled="true"`) {
+     t.Fatal("iOS unavailable indicator should not be a clickable download")
+   }
+   if strings.Contains(html,`href="https://github.com/WhiteDNS/WhiteDNS-Android/releases/download/1.6.14/WhiteDNS-1.6.14-universal.apk/u/`) {
+     t.Fatal("public download must not include bearer credentials")
+   }
+ }
+ // Inactive users should still be able to download the app, without
+ // disclosing any active protocol configuration.
+ changed,err:=store.Edit(account.ID,ClientInput{
+   Name:account.Name,Engines:account.Engines,Enabled:false,
+   QuotaBytes:account.QuotaBytes,StreamLimit:account.StreamLimit,
+   Revision:account.Revision,
+ })
+ if err != nil {t.Fatal(err)}
+ _ = changed
+ disabled:=httptest.NewRecorder()
+ h.ServeHTTP(disabled,httptest.NewRequest("GET","http://example.test/u/"+token,nil))
+ if disabled.Code!=200 || !strings.Contains(disabled.Body.String(),expectedAPK) {
+   t.Fatal("disabled subscriber page should still offer client download")
+ }
+ if strings.Contains(disabled.Body.String(),`class="profile-card"`) {
+   t.Fatal("disabled subscriber must not receive any live profiles")
+ }
+}
