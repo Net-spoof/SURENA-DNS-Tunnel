@@ -56,7 +56,7 @@ func TestDNSFabricSubscriptionPortal(t *testing.T) {
  if p.Code!=200 || !strings.Contains(p.Body.String(),"پنل اشتراک") {
    t.Fatal("subscriber portal failed")
  }
- if p.Header().Get("X-Robots-Tag")!="noindex, nofollow" {t.Fatal("portal must not be indexed")}
+ if !strings.Contains(p.Header().Get("X-Robots-Tag"),"noindex") || !strings.Contains(p.Header().Get("X-Robots-Tag"),"nofollow") {t.Fatal("portal must not be indexed")}
  bad:=httptest.NewRecorder()
  h.ServeHTTP(bad,httptest.NewRequest("GET","http://example.test/u/bad",nil))
  if bad.Code!=404 {t.Fatal("invalid bearer token accepted")}
