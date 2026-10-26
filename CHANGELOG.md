@@ -1,5 +1,14 @@
 # Changelog
 
+## DNSFabric Subscriber Portal · 0.8.2.1 (preview)
+
+- Built an independently version-locked WhiteDNS 0.8.2 server patch at the pinned upstream commit, under the upstream Apache-2.0 terms.
+- Added `/s/TOKEN` as a short subscription alias and `/u/TOKEN` as a private usage, expiry and QR dashboard.
+- Preserved `/sub/TOKEN` response bytes, subscription tokens, management login path, tunnel accounts and quota history.
+- Added a portal button and short subscription link in the existing management UI.
+- Published automated amd64/arm64 binaries and a guarded in-place updater with SHA-256 verification, private backup and rollback.
+- Added Persian RTL and English rollout guides and upstream compatibility tests.
+
 ## Unreleased — DNSFabric branding
 
 - Published detailed, example-driven Persian RTL and English installation manuals (`docs/INSTALLATION.fa.md` and `.en.md`).
