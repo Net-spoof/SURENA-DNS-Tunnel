@@ -1,0 +1,79 @@
+name: DNSFabric WhiteDNS 0.8.2 Subscriber Portal
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - patches/dnsfabric_subportal.go
+      - patches/dnsfabric_subportal_test.go
+      - scripts/patch_subportal.py
+      - .github/workflows/subportal.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout DNSFabric patchset
+        uses: actions/checkout@v4
+      - name: Install Go 1.25
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.x'
+          cache: false
+      - name: Checkout exact upstream WhiteDNS release source
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git clone --quiet https://github.com/WhiteDNS/Soar-Server.git upstream
+          git -C upstream checkout --quiet --detach 736ad1b04cf4c1dc39dfc258db86922a3919382e
+          test "$(git -C upstream rev-parse HEAD)" = 736ad1b04cf4c1dc39dfc258db86922a3919382e
+      - name: Apply fail-closed integration
+        run: |
+          python3 scripts/patch_subportal.py upstream
+          gofmt -w upstream/internal/panel/dnsfabric_subportal.go upstream/internal/panel/dnsfabric_subportal_test.go upstream/internal/panel/http.go upstream/internal/panel/subscriptions.go
+      - name: Run existing and new subscription tests
+        working-directory: upstream
+        run: |
+          go mod download
+          go mod verify
+          go test ./internal/panel -run 'TestSubscription|TestDNSFabric' -count=1 -timeout 180s
+          go test ./... -count=1 -timeout 360s
+      - name: Compile native Linux amd64 and arm64 binaries
+        working-directory: upstream
+        run: |
+          set -Eeuo pipefail
+          mkdir -p ../release
+          for arch in amd64 arm64; do
+            GOOS=linux GOARCH="$arch" CGO_ENABLED=0 go build \
+              -mod=readonly -trimpath -buildvcs=false -ldflags="-s -w" \
+              -o ../release/soar-panel ./cmd/soar-panel
+            cp LICENSE ../release/WHITE-DNS-LICENSE
+            tar -C ../release -czf "../release/dnsfabric-subportal-linux-$arch.tar.gz" \
+              soar-panel WHITE-DNS-LICENSE
+            rm -f ../release/soar-panel
+          done
+          (cd ../release && sha256sum dnsfabric-subportal-linux-*.tar.gz > SHA256SUMS)
+      - name: Publish release only after passing full test suite
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: dnsfabric-subportal-v0.8.2.1
+          name: DNSFabric subscriber portal for WhiteDNS v0.8.2
+          body: |
+            Adds an independent branded subscription view and short /s/ URLs.
+            Keeps existing /sub/ links, user database, quota tracking and tunnel profiles intact.
+            Built from WhiteDNS/Soar-Server pinned commit 736ad1b04cf4c1dc39dfc258db86922a3919382e
+            with Apache-2.0 attribution.
+            NOT an upstream official WhiteDNS update. Use the guarded DNSFabric updater.
+          fail_on_unmatched_files: true
+          files: |
+            release/dnsfabric-subportal-linux-amd64.tar.gz
+            release/dnsfabric-subportal-linux-arm64.tar.gz
+            release/SHA256SUMS
+          draft: false
+          prerelease: true
+          target_commitish: main
