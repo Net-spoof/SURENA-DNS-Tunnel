@@ -128,6 +128,21 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #7b
 .qr-content{margin-top:12px;padding:17px 10px;background:#101f2e;border:1px solid #345063;border-radius:13px;text-align:center}
 .qr-content img{width:205px}
 .expand{margin-top:11px}
+.app-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.app-tile{min-width:0;background:linear-gradient(140deg,#132738,#0d1c2b);border:1px solid #375469;border-radius:17px;padding:17px;display:flex;flex-direction:column;gap:12px}
+.app-tile.unavailable{background:#14212c;border-color:#344757}
+.app-heading{display:flex;align-items:center;gap:11px}
+.app-platform-icon{width:37px;height:37px;min-width:37px;border-radius:12px;background:#1c5649;color:#90f7d9;display:grid;place-items:center}
+.app-platform-icon.apple{background:#293a4b;color:#cad6e2}
+.app-platform-icon svg{width:24px;height:24px}
+.app-heading strong{display:block;font-size:14px}
+.app-heading small{display:block;color:#94a9b9;font-size:11px;margin-top:4px;direction:ltr;text-align:right}
+.app-tile .note{margin:0;flex:1}
+.app-download{width:100%;text-align:center}
+.app-unavailable{border:1px dashed #556b7e;color:#b5c7d4;background:#213041;padding:12px;border-radius:11px;font-size:12px;text-align:center}
+.app-footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:9px;color:#9ab4c5;font-size:11px}
+.app-footer a{color:#98e9d7;text-decoration:none}
+.app-footer a:hover{text-decoration:underline}
 .privacy{margin-top:20px;text-align:center;font-size:11px;line-height:1.8;color:#91a6b8}
 dialog{width:min(92vw,430px);padding:22px;border-radius:21px;background:#162737;border:1px solid #517184;color:#f0faff;box-shadow:0 15px 55px #000c}
 dialog::backdrop{background:#000c}
@@ -135,7 +150,7 @@ dialog::backdrop{background:#000c}
 dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;border-radius:14px;padding:12px}
 .small{font-size:11px;color:#98abb9;text-align:center;margin:12px 0}.import-help{font-size:14px;line-height:2;color:#c7d9e4}.import-help ol{padding-right:20px;margin:11px 0}.import-help li{margin:9px 0}.import-help strong{color:#7be9cb}.dialog-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.dialog-actions>*{flex:1}.import-feedback{font-size:12px;line-height:1.8;color:#8edcc7}.import-feedback.warn{color:#ffce9c}
 @media(max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){body{padding:16px 11px 34px}.panel{padding:19px}.profile-grid{grid-template-columns:1fr}.masthead .title{font-size:19px}.profile-card{padding:16px}.actions>*{flex:1}.stats{gap:9px}.stat{padding:12px}.stat strong{font-size:14px}}
+@media(max-width:560px){body{padding:16px 11px 34px}.panel{padding:19px}.profile-grid,.app-grid{grid-template-columns:1fr}.masthead .title{font-size:19px}.profile-card{padding:16px}.actions>*{flex:1}.stats{gap:9px}.stat{padding:12px}.stat strong{font-size:14px}}
 </style>
 </head>
 <body>
@@ -193,6 +208,29 @@ dialog img{display:block;width:min(100%,345px);margin:0 auto;background:#fff;bor
 {{else}}
 <section class="section"><h2>اشتراک غیرفعال است</h2><p class="note">حساب غیرفعال، منقضی یا فاقد حجم است؛ لینک کانفیگ و QR اتصال نمایش داده نمی‌شوند.</p></section>
 {{end}}
+<section class="section" aria-labelledby="app-download-heading">
+<div class="section-head"><div><h2 id="app-download-heading">دریافت برنامه اتصال</h2><div class="subtitle">Get the client · Official download</div></div></div>
+<div class="app-grid">
+<div class="app-tile android">
+<div class="app-heading">
+<span class="app-platform-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m7 6-1.5-2M17 6l1.5-2M5 9a7 7 0 0 1 14 0"/><rect x="4" y="9" width="16" height="10" rx="3"/><path d="M8 19v2m8-2v2M2 12v4m20-4v4"/><circle cx="9" cy="12.5" r=".65" fill="currentColor" stroke="none"/><circle cx="15" cy="12.5" r=".65" fill="currentColor" stroke="none"/></svg></span>
+<div><strong>اندروید</strong><small>Android · Official APK</small></div>
+</div>
+<p class="note">نسخه رسمی و سازگار با معماری‌های مختلف گوشی · نسخه 1.6.14</p>
+<a id="android-app-download" class="btn primary app-download" href="https://github.com/WhiteDNS/WhiteDNS-Android/releases/download/1.6.14/WhiteDNS-1.6.14-universal.apk" target="_blank" rel="noopener noreferrer nofollow" aria-label="دانلود مستقیم نسخه رسمی اندروید 1.6.14">دانلود برنامه اندروید · APK</a>
+<div class="app-footer"><span>فایل رسمی · Universal</span><a href="https://github.com/WhiteDNS/WhiteDNS-Android/releases/latest" target="_blank" rel="noopener noreferrer nofollow">مشاهده آخرین نسخه‌ها</a></div>
+</div>
+<div class="app-tile unavailable">
+<div class="app-heading">
+<span class="app-platform-icon apple" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 6.5c-1.5 0-2.3-1.5-4.4-1.5C4.3 5 2.5 8.1 2.5 12c0 4 2.1 8.4 5.2 8.4 1.7 0 2.4-1 4.3-1s2.6 1 4.3 1c3.1 0 5.2-4.4 5.2-8.4 0-3.9-1.8-7-5.1-7-2.1 0-2.9 1.5-4.4 1.5Z"/><path d="M12 6c0-3.5 2-5.5 5.5-5.5-.2 3.2-2.1 5.5-5.5 5.5Z"/></svg></span>
+<div><strong>آیفون / iOS</strong><small>iPhone · iOS</small></div>
+</div>
+<p class="note">نسخه رسمی سازگار با این اشتراک برای iPhone تأیید نشده است.</p>
+<span class="app-unavailable" aria-disabled="true">نسخه iOS فعلاً موجود نیست</span>
+<div class="app-footer"><span>بدون لینک دانلود غیررسمی</span></div>
+</div>
+</div>
+</section>
 </article>
 <p class="privacy">لینک اشتراک و QRهای اتصال محرمانه‌اند. آن‌ها را در پیام عمومی یا تصویر منتشر نکنید.</p>
 </main>
