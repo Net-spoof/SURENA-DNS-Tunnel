@@ -99,7 +99,7 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
    }
  }
  if count != 3 {t.Fatalf("expected 3 config profiles, got %d",count)}
- if strings.Count(body,"class=\"button primary copy\" data-copy=\"config-") != count {
+ if strings.Count(body,"class=\"button copy\" data-copy=\"config-") != count {
    t.Fatal("each config card must have its own copy button")
  }
  if strings.Count(body,"class=\"qr-details\"") != count {
@@ -108,18 +108,19 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
  if strings.Count(body,"class=\"button expand qr-expand\"") != count {
    t.Fatal("each config must support enlarging its QR")
  }
- if strings.Count(body,"بازکردن · Open") != count {t.Fatal("each config must support an Open deep link")}
+ if strings.Count(body,"📱 افزودن به برنامه") != count {t.Fatal("every profile must have an Add to App direct deep link")}
+ if strings.Count(body,"class=\"btn primary profile-open\"") != count {t.Fatal("every profile must have a direct deep link button")}
  if strings.Contains(body,"#ZgotmplZ") {t.Fatal("Go HTML templates rejected legitimate protocol deep link")}
  if !strings.Contains(body,"Copy subscription") {t.Fatal("subscription copy button should be separately named")}
- if !strings.Contains(body,"id=\"add-to-app\"") || !strings.Contains(body,"افزودن به برنامه") {
-   t.Fatal("subscriber page must offer Add to App as the primary subscription action")
+ if !strings.Contains(body,"id=\"add-to-app\"") || !strings.Contains(body,"کپی و راهنمای افزودن اشتراک") {
+   t.Fatal("subscription control must be clearly distinguished from direct profile Add to App")
  }
  if !strings.Contains(body,"id=\"app-dialog\"") || !strings.Contains(body,"Profiles → Connection → Import") ||
    !strings.Contains(body,"id=\"app-copy-again\"") {
    t.Fatal("subscription import must display accurate copy-and-paste instructions")
  }
- if strings.Contains(body,"دریافت اشتراک · Import</a>") {
-   t.Fatal("old browser-facing subscription link must not remain")
+ if strings.Contains(body,"دریافت اشتراک · Import</a>") || strings.Contains(body,"بازکردن · Open</a>") {
+   t.Fatal("misleading legacy action labels must not remain")
  }
  if !strings.Contains(body,"id=\"subscription-url\"") || !strings.Contains(body,"data-copy=\"subscription-url\"") {
    t.Fatal("separate subscription copy control must remain")
