@@ -66,10 +66,10 @@ jobs:
       - name: Publish release only after passing full test suite
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: dnsfabric-subportal-v0.8.2.5
-          name: DNSFabric subscriber portal 0.8.2.5 · Add to App
+          tag_name: dnsfabric-subportal-v0.8.2.6
+          name: DNSFabric subscriber portal 0.8.2.6 · per-protocol Add to App
           body: |
-            Replaces the confusing raw subscription Import action with a mobile-friendly Add to App button that copies the subscription URL and displays accurate in-app Import/Paste instructions. Direct profile deep links, per-engine QR and legacy /sub/ remain intact.
+            Corrects Add to App semantics: each Soar, CottenDNS and MasterDNS direct profile deep link now has the labeled Add to App action. The subscription-only button is called Copy and subscription help and does not claim automatic app import. Original /sub/, /s/, QR and data remain compatible.
             Keeps existing /sub/ links, user database, quota tracking and tunnel profiles intact.
             Built from WhiteDNS/Soar-Server pinned commit 736ad1b04cf4c1dc39dfc258db86922a3919382e
             with Apache-2.0 attribution.
