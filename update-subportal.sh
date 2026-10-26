@@ -12,7 +12,7 @@ done
 BIN=/usr/local/bin/soar-panel
 DB=/var/lib/soar-panel/panel.db
 SERVICE=soar-panel.service
-RELEASE=dnsfabric-subportal-v0.8.2.2
+RELEASE=dnsfabric-subportal-v0.8.2.3
 BASE="https://github.com/Net-spoof/dnsfabric/releases/download/$RELEASE"
 [[ -x "$BIN" && -s "$DB" ]] || { echo "ERROR: WhiteDNS panel not installed" >&2; exit 1; }
 [[ -f /var/lib/soar-panel/access.json ]] || { echo "ERROR: access settings unavailable" >&2; exit 1; }
@@ -96,4 +96,5 @@ DONE=1
 STOPPED=0
 echo "PASS: DNSFabric subscriber portal updated; users and usage preserved."
 echo "Legacy /sub/ remains raw. /s/ shows the portal in browsers and stays raw for apps."
+echo "Each enabled protocol has its own copyable config link in the subscriber portal."
 echo "Backup saved: $BACKUP"
