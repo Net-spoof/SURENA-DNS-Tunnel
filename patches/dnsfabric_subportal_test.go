@@ -1,7 +1,10 @@
 package panel
 
 import (
+ "bytes"
  "net/http/httptest"
+ "net/url"
+ qrcode "github.com/skip2/go-qrcode"
  "strings"
  "testing"
 )
@@ -86,11 +89,34 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
      if link=="" {continue}
      count++
      if !strings.Contains(body, link) {t.Fatalf("missing raw %s config from subscriber view",engine)}
+     qrPath:="/u/"+credential+"?qr=profile&engine="+url.QueryEscape(engine)+"&zone="+url.QueryEscape(zone)
+     qr:=httptest.NewRecorder()
+     h.ServeHTTP(qr,httptest.NewRequest("GET","http://example.test"+qrPath,nil))
+     if qr.Code!=200 || qr.Header().Get("Content-Type")!="image/png" {t.Fatalf("missing QR for %s: %d",engine,qr.Code)}
+     expectedQR,e:=qrcode.Encode(link,qrcode.Medium,512)
+     if e!=nil {t.Fatal(e)}
+     if !bytes.Equal(qr.Body.Bytes(),expectedQR) {t.Fatalf("QR payload mismatch for %s; must encode direct config",engine)}
    }
  }
  if count != 3 {t.Fatalf("expected 3 config profiles, got %d",count)}
- if strings.Count(body,"class='copy-config'") != count {t.Fatal("every config must have its own copy button")}
+ if strings.Count(body,"class=\"button primary copy\" data-copy=\"config-") != count {
+   t.Fatal("each config card must have its own copy button")
+ }
+ if strings.Count(body,"class=\"qr-details\"") != count {
+   t.Fatal("each config card must have independently expandable QR")
+ }
+ if strings.Count(body,"class=\"button expand qr-expand\"") != count {
+   t.Fatal("each config must support enlarging its QR")
+ }
+ if strings.Count(body,"بازکردن · Open") != count {t.Fatal("each config must support an Open deep link")}
+ if strings.Contains(body,"#ZgotmplZ") {t.Fatal("Go HTML templates rejected legitimate protocol deep link")}
  if !strings.Contains(body,"Copy subscription") {t.Fatal("subscription copy button should be separately named")}
+ // A valid bearer token is not enough to retrieve arbitrary engines or DNS zones.
+ for _, query := range []string{"?qr=profile&engine=invalid&zone=example.com","?qr=profile&engine=soar&zone=attacker.example.com","?qr=invalid"} {
+   invalid:=httptest.NewRecorder()
+   h.ServeHTTP(invalid,httptest.NewRequest("GET","http://example.test/u/"+credential+query,nil))
+   if invalid.Code!=404 {t.Fatalf("unexpected QR endpoint response for invalid request: %d",invalid.Code)}
+ }
  // Disabled users retain a status page, but not connection secrets.
  clientInput:=ClientInput{Name:c.Name,Engines:"all",Enabled:false,QuotaBytes:c.QuotaBytes,StreamLimit:c.StreamLimit,Revision:c.Revision}
  if _,err := store.Edit(c.ID,clientInput);err!=nil {t.Fatal(err)}
@@ -100,4 +126,7 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
    strings.Contains(after.Body.String(),"cottendns://") || strings.Contains(after.Body.String(),"masterdns://") {
    t.Fatal("disabled account should not display configuration secrets")
  }
+ blockedQR:=httptest.NewRecorder()
+ h.ServeHTTP(blockedQR,httptest.NewRequest("GET","http://example.test/u/"+credential+"?qr=profile&engine=soar&zone="+url.QueryEscape(cfg.orderedZones()[0]),nil))
+ if blockedQR.Code!=404 {t.Fatal("disabled account must not expose QR credentials")}
 }
