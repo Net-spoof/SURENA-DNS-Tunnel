@@ -20,10 +20,10 @@ jobs:
     steps:
       - name: Checkout DNSFabric patchset
         uses: actions/checkout@v4
-      - name: Install Go 1.25
+      - name: Install Go 1.26
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25.x'
+          go-version: '1.26.1'
           cache: false
       - name: Checkout exact upstream WhiteDNS release source
         shell: bash
@@ -36,10 +36,15 @@ jobs:
         run: |
           python3 scripts/patch_subportal.py upstream
           gofmt -w upstream/internal/panel/dnsfabric_subportal.go upstream/internal/panel/dnsfabric_subportal_test.go upstream/internal/panel/http.go upstream/internal/panel/subscriptions.go
-      - name: Run existing and new subscription tests
+      - name: Prepare pinned CottenDNS and MasterDNS patched Go workspace
         working-directory: upstream
         run: |
-          go mod download
+          GOWORK=off go mod download
+          python3 scripts/prepare_panel_engines.py --workspace .engine-source/patched.go.work
+          echo "GOWORK=$GITHUB_WORKSPACE/upstream/.engine-source/patched.go.work" >> "$GITHUB_ENV"
+      - name: Run upstream and custom subscription tests
+        working-directory: upstream
+        run: |
           go mod verify
           go test ./internal/panel -run 'TestSubscription|TestDNSFabric' -count=1 -timeout 180s
           go test ./... -count=1 -timeout 360s
