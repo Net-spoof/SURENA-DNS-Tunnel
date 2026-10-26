@@ -1,6 +1,12 @@
 # Changelog
 
-## DNSFabric Subscriber Portal · 0.8.2.1 (preview)
+## DNSFabric Subscriber Portal · 0.8.2.2 (preview)
+
+- Browser-aware `/s/TOKEN`: browsers see the dashboard while subscription clients keep the previous raw encoded data and headers.
+- Made the user page Persian RTL with a copy-link control.
+- Kept legacy `/sub/TOKEN` strictly raw; raw format query parameters always override browser negotiation.
+
+## DNSFabric Subscriber Portal · 0.8.2.1
 
 - Built an independently version-locked WhiteDNS 0.8.2 server patch at the pinned upstream commit, under the upstream Apache-2.0 terms.
 - Added `/s/TOKEN` as a short subscription alias and `/u/TOKEN` as a private usage, expiry and QR dashboard.
