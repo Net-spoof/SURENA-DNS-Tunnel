@@ -1,5 +1,13 @@
 # Changelog
 
+## DNSFabric Subscriber Portal · 0.8.2.7 (preview)
+
+- Added an official direct Android APK download button (WhiteDNS 1.6.14, universal) plus a link to the latest official release page.
+- Added a separate iPhone / iOS tile with an Apple-shaped icon, transparently indicating that no verified compatible iOS client release is available.
+- No private subscription URLs or account tokens are sent with the APK download; no binaries are repackaged or redistributed.
+- Kept all subscription routes, deep-link config imports, quota displays, QR endpoints and service data untouched.
+- Added tests for official download URLs, safety of the iOS indication, and download availability on inactive accounts.
+
 ## DNSFabric Subscriber Portal · 0.8.2.6 (preview)
 
 - Corrected the intended control: each enabled protocol card now labels its existing direct `soar://`, `cottendns://` or `masterdns://` Open deep link **📱 افزودن به برنامه (Add to App)**.
