@@ -66,10 +66,10 @@ jobs:
       - name: Publish release only after passing full test suite
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: dnsfabric-subportal-v0.8.2.2
-          name: DNSFabric subscriber portal 0.8.2.2 · browser-aware subscription
+          tag_name: dnsfabric-subportal-v0.8.2.3
+          name: DNSFabric subscriber portal 0.8.2.3 · individual protocol configs
           body: |
-            Browser navigation on /s/ displays a subscriber dashboard; applications still get original raw /sub/ payload.
+            Subscriber dashboard now lists individually copyable Soar, CottenDNS and MasterDNS profiles with neutral branding. /s/ remains browser-aware and /sub/ remains unchanged for apps.
             Keeps existing /sub/ links, user database, quota tracking and tunnel profiles intact.
             Built from WhiteDNS/Soar-Server pinned commit 736ad1b04cf4c1dc39dfc258db86922a3919382e
             with Apache-2.0 attribution.
