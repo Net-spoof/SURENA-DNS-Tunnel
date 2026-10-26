@@ -1,5 +1,12 @@
 # Changelog
 
+## DNSFabric Subscriber Portal · 0.8.2.4 (preview)
+
+- Responsive redesign of the customer subscription dashboard, with clean two-column desktop/one-column mobile protocol cards.
+- Per-engine, per-zone QR endpoint that encodes the exact direct configuration URL, with server-side token, active-status and allowed-zone validation.
+- New **Show QR**, QR enlarge modal, and **Open** direct protocol deep-link actions; retained separate Copy Config and Copy Subscription buttons.
+- Added regression tests for QR payload matching, invalid zone/engine rejection and disabled-account QR privacy.
+
 ## DNSFabric Subscriber Portal · 0.8.2.3 (preview)
 
 - Removed product branding from the public subscriber page.
