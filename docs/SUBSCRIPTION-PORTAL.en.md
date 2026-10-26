@@ -8,7 +8,7 @@
 
 ## Individual protocol links
 
-The **unbranded** public subscriber page lists all enabled Soar, CottenDNS and MasterDNS protocol profiles for each delegated tunnel zone. Each profile has its **own actual connection URL**, **Copy config**, **Open**, and independently expandable **Show QR** with a larger QR modal. Every QR is encoded on the server from the exact protocol configuration, not from the subscription URL. The separate **Copy subscription** button only copies the subscription URL. No DNSFabric or WhiteDNS product branding is displayed to customers.
+The **unbranded** public subscriber page lists all enabled Soar, CottenDNS and MasterDNS protocol profiles for each delegated tunnel zone. Each profile has its **own actual connection URL**, **Copy config**, **Add to App**, and independently expandable **Show QR** with a larger QR modal. Every QR is encoded on the server from the exact protocol configuration, not from the subscription URL. The separate **Copy subscription** button only copies the subscription URL. No DNSFabric or WhiteDNS product branding is displayed to customers.
 
 ## Routes
 
@@ -58,9 +58,9 @@ The resulting backup path is printed, under <code>/root/dnsfabric-subportal-back
 
 ## Add to App button
 
-The primary subscription action is now **📱 افزودن به برنامه (Add to App)**. Tapping it copies the HTTPS subscription URL and opens a short guide showing where to paste it inside the compatible Android app: **Profiles → Connection → Import**. If automatic clipboard access fails, the page explains how to copy the link manually.
+The subscription toolbar now has **کپی و راهنمای افزودن اشتراک (Copy and subscription setup guide)**. Tapping it copies the HTTPS subscription URL and opens a short guide showing where to paste it inside the compatible Android app: **Profiles → Connection → Import**. If automatic clipboard access fails, the page explains how to copy the link manually.
 
-**Compatibility note:** The current official Android app declares ACTION_VIEW deep links only for individual profile schemes (`soar://`, `cottendns://`, `masterdns://`, `stormdns://`), **not** for automatic import of HTTPS subscription URLs. This control does not falsely claim that the app has automatically imported the subscription. Individual **Open** profile controls continue to use the recognized protocol deep links.
+**Compatibility note:** The current official Android app declares ACTION_VIEW deep links only for individual profile schemes (`soar://`, `cottendns://`, `masterdns://`, `stormdns://`), **not** for automatic import of HTTPS subscription URLs. This control does not falsely claim that the app has automatically imported the subscription. Each protocol card now labels its existing direct deep link **📱 افزودن به برنامه (Add to App)**, instead of the ambiguous **Open**. This action uses the real `soar://`, `cottendns://`, or `masterdns://` URI and can open a compatible installed app. It is distinct from the subscription copy-and-guide control.
 
 ## Protocol QR controls
 
@@ -75,6 +75,6 @@ Open a browser-facing `/s/TOKEN` link, expand **Show QR** on any enabled protoco
 - An upstream panel update can replace this custom binary. Verify compatibility before upgrading WhiteDNS again.
 - The GitHub Actions workflow compiles patched upstream source at an exact commit and runs unit tests. Real VPS rollout must still be validated on the target server.
 
-[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.5) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
+[Release assets](https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.6) · [Build/test workflow](https://github.com/Net-spoof/dnsfabric/actions/workflows/subportal.yml)
 
 Upstream source: [WhiteDNS/Soar-Server](https://github.com/WhiteDNS/Soar-Server), Apache License 2.0. DNSFabric remains a separate community integration.
