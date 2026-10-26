@@ -42,7 +42,7 @@
   </table>
 
   <h3>افزونه لینک اشتراک</h3>
-  <p>برای پنل‌های موجود <strong>WhiteDNS v0.8.2</strong>، افزونه جداگانه <a href="docs/SUBSCRIPTION-PORTAL.fa.md">Subscriber Portal</a> آماده است: لینک هوشمند <code>/s/TOKEN</code> (نمایش داشبورد در مرورگر و خروجی خام برای اپ)، صفحه وضعیت کاربر <code>/u/TOKEN</code>، QR و نمایش مصرف/انقضا. لینک قدیمی <code>/sub/TOKEN</code> حفظ می‌شود. این قابلیت از طریق <a href="https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.2">بسته سفارشی GitHub</a> نصب می‌شود، نه آپدیت رسمی WhiteDNS.</p>
+  <p>برای پنل‌های موجود <strong>WhiteDNS v0.8.2</strong>، افزونه جداگانه <a href="docs/SUBSCRIPTION-PORTAL.fa.md">Subscriber Portal</a> آماده است: لینک هوشمند <code>/s/TOKEN</code> (نمایش داشبورد در مرورگر و خروجی خام برای اپ)، صفحه وضعیت کاربر <code>/u/TOKEN</code>، QR و نمایش مصرف/انقضا. **هر کانفیگ Soar، CottenDNS و MasterDNS به‌صورت جداگانه همراه با دکمه کپی مستقیم** نمایش داده می‌شود؛ صفحه کاربر نام پروژه یا WhiteDNS را نشان نمی‌دهد. لینک قدیمی <code>/sub/TOKEN</code> حفظ می‌شود. این قابلیت از طریق <a href="https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.3">بسته سفارشی GitHub</a> نصب می‌شود، نه آپدیت رسمی WhiteDNS.</p>
   <p><strong>برای سرور نصب‌شده:</strong> ابتدا بررسی سازگاری را انجام دهید:</p>
 </div>
 
