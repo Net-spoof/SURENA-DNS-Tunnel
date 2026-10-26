@@ -12,5 +12,7 @@ jobs:
       - name: Syntax and unit tests
         run: |
           bash -n install.sh
+          bash -n update-subportal.sh
+          python3 -m py_compile scripts/patch_subportal.py
           python3 -m py_compile installer.py
           python3 -m unittest discover -s tests -v
