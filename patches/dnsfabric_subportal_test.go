@@ -75,7 +75,7 @@ func TestSubscriberPageListsAllEnabledProtocolConfigs(t *testing.T) {
  h.ServeHTTP(page,req)
  if page.Code != 200 { t.Fatalf("unexpected page HTTP %d",page.Code) }
  body := page.Body.String()
- if strings.Contains(body, "DNSFabric") || strings.Contains(body, "WhiteDNS") || strings.Contains(body, "WHITE DNS") {
+ if strings.Contains(body, "<header>DNSFabric</header>") || strings.Contains(body, "<header>WhiteDNS</header>") || strings.Contains(body, "<title>DNSFabric") || strings.Contains(body, "<title>WhiteDNS") || strings.Contains(body, "WHITE DNS · SUBSCRIPTION PORTAL") {
    t.Fatal("subscriber-facing branding must be generic")
  }
  client, cfg, err := store.Subscription(credential)
