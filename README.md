@@ -16,6 +16,7 @@
     <a href="#english">English</a> ·
     <a href="docs/INSTALLATION.fa.md">راهنمای نصب</a> ·
     <a href="docs/MULTI-SERVER.fa.md">چند سرور</a> ·
+    <a href="docs/SUBSCRIPTION-PORTAL.fa.md">لینک ساب حرفه‌ای</a> ·
     <a href="SECURITY.md">Security</a>
   </p>
 </div>
@@ -40,12 +41,35 @@
     </tbody>
   </table>
 
+  <h3>افزونه لینک اشتراک</h3>
+  <p>برای پنل‌های موجود <strong>WhiteDNS v0.8.2</strong>، افزونه جداگانه <a href="docs/SUBSCRIPTION-PORTAL.fa.md">Subscriber Portal</a> آماده است: لینک کوتاه <code>/s/TOKEN</code>، صفحه وضعیت کاربر <code>/u/TOKEN</code>، QR و نمایش مصرف/انقضا. لینک قدیمی <code>/sub/TOKEN</code> حفظ می‌شود. این قابلیت از طریق <a href="https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.1">بسته سفارشی GitHub</a> نصب می‌شود، نه آپدیت رسمی WhiteDNS.</p>
+  <p><strong>برای سرور نصب‌شده:</strong> ابتدا بررسی سازگاری را انجام دهید:</p>
+</div>
+
+~~~bash
+curl -fL --show-error --retry 3 \
+  -o /root/dnsfabric-update-subportal.sh \
+  https://raw.githubusercontent.com/Net-spoof/dnsfabric/main/update-subportal.sh
+
+bash /root/dnsfabric-update-subportal.sh --check
+~~~
+
+<div dir="rtl" align="right">
+  <p>پس از تأیید نسخه، اجرای افزونه:</p>
+</div>
+
+~~~bash
+bash /root/dnsfabric-update-subportal.sh
+~~~
+
+<div dir="rtl" align="right">
   <h3>آموزش‌ها</h3>
   <table>
     <thead><tr><th align="right">مستند</th><th align="right">موضوع</th></tr></thead>
     <tbody>
       <tr><td align="right"><a href="docs/INSTALLATION.fa.md"><strong>نصب کامل</strong></a></td><td align="right">رکوردهای Cloudflare، تمام ورودی‌ها، پیش‌نیازها و آزمون اتصال</td></tr>
       <tr><td align="right"><a href="docs/MULTI-SERVER.fa.md"><strong>چندسروری</strong></a></td><td align="right">طراحی رکوردهای مستقل برای چند VPS</td></tr>
+      <tr><td align="right"><a href="docs/SUBSCRIPTION-PORTAL.fa.md"><strong>افزونه لینک ساب</strong></a></td><td align="right">صفحه اختصاصی، لینک کوتاه، QR، حجم و انقضا، دستور آپدیت ایمن</td></tr>
       <tr><td align="right"><a href="docs/TROUBLESHOOTING.fa.md"><strong>رفع خطا</strong></a></td><td align="right">عیب‌یابی DNS، HTTPS، پنل و کلاینت</td></tr>
       <tr><td align="right"><a href="docs/INSTALLATION.en.md">Installation guide</a></td><td align="right">English documentation and setup checklist</td></tr>
       <tr><td align="right"><a href="docs/MULTI-SERVER.en.md">Multi-server guide</a></td><td align="right">English deployment patterns</td></tr>
@@ -101,6 +125,7 @@ The upstream panel provides selectable profiles for **Soar**, **CottenDNS**, and
 |:--|:--|
 | [Installation guide](docs/INSTALLATION.en.md) | Prerequisites, Cloudflare A/NS records, prompts and validation |
 | [Multiple VPS deployments](docs/MULTI-SERVER.en.md) | Independent per-server records and example hostnames |
+| [Subscriber portal add-on](docs/SUBSCRIPTION-PORTAL.en.md) | Short links, usage dashboard, QR and version-locked in-place updater |
 | [Troubleshooting](docs/TROUBLESHOOTING.fa.md) | DNS, HTTPS and panel diagnostics |
 | [Contributing](CONTRIBUTING.md) | Tests and contribution workflow |
 | [Changelog](CHANGELOG.md) | Changes and development status |
