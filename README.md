@@ -42,7 +42,7 @@
   </table>
 
   <h3>افزونه لینک اشتراک</h3>
-  <p>برای پنل‌های موجود <strong>WhiteDNS v0.8.2</strong>، افزونه جداگانه <a href="docs/SUBSCRIPTION-PORTAL.fa.md">Subscriber Portal</a> آماده است: لینک کوتاه <code>/s/TOKEN</code>، صفحه وضعیت کاربر <code>/u/TOKEN</code>، QR و نمایش مصرف/انقضا. لینک قدیمی <code>/sub/TOKEN</code> حفظ می‌شود. این قابلیت از طریق <a href="https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.1">بسته سفارشی GitHub</a> نصب می‌شود، نه آپدیت رسمی WhiteDNS.</p>
+  <p>برای پنل‌های موجود <strong>WhiteDNS v0.8.2</strong>، افزونه جداگانه <a href="docs/SUBSCRIPTION-PORTAL.fa.md">Subscriber Portal</a> آماده است: لینک هوشمند <code>/s/TOKEN</code> (نمایش داشبورد در مرورگر و خروجی خام برای اپ)، صفحه وضعیت کاربر <code>/u/TOKEN</code>، QR و نمایش مصرف/انقضا. لینک قدیمی <code>/sub/TOKEN</code> حفظ می‌شود. این قابلیت از طریق <a href="https://github.com/Net-spoof/dnsfabric/releases/tag/dnsfabric-subportal-v0.8.2.2">بسته سفارشی GitHub</a> نصب می‌شود، نه آپدیت رسمی WhiteDNS.</p>
   <p><strong>برای سرور نصب‌شده:</strong> ابتدا بررسی سازگاری را انجام دهید:</p>
 </div>
 
@@ -125,7 +125,7 @@ The upstream panel provides selectable profiles for **Soar**, **CottenDNS**, and
 |:--|:--|
 | [Installation guide](docs/INSTALLATION.en.md) | Prerequisites, Cloudflare A/NS records, prompts and validation |
 | [Multiple VPS deployments](docs/MULTI-SERVER.en.md) | Independent per-server records and example hostnames |
-| [Subscriber portal add-on](docs/SUBSCRIPTION-PORTAL.en.md) | Short links, usage dashboard, QR and version-locked in-place updater |
+| [Subscriber portal add-on](docs/SUBSCRIPTION-PORTAL.en.md) | Smart browser/app links, usage dashboard, QR and version-locked updater |
 | [Troubleshooting](docs/TROUBLESHOOTING.fa.md) | DNS, HTTPS and panel diagnostics |
 | [Contributing](CONTRIBUTING.md) | Tests and contribution workflow |
 | [Changelog](CHANGELOG.md) | Changes and development status |
